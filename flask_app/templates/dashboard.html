@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Pizzas</title>
+    <link rel="stylesheet" href="./static/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="nav class=“d-flex justify-content-between align-items-center col-12 bg-dark opacity-25">
+        <h1 class=“text-center”><span>{{user.first_name}} {{user.last_name}}’s</span> Pizzas!!</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <a href="/mypizzas" class="btn btn-danger">My Pizzas</a>
+            <a href="/new/pizza" class="btn btn-primary">New Pizza</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+
+        </div>
+
+    </nav>
+    <div class="col-8 mx-auto">
+
+        <table class="table table-hover table-dark table-bordered">
+            <h2 class="card-title text-primary">All Pizzas:</h2>
+                <div class="col-8 mx-auto text-light"></div>
+            <thead class="text-center">
+                <tr>
+                    <th>Pizza Name</th>
+                    <th>Customer Name</th>
+                    <th>Toppings</th>
+                    <th>Pizza Home City</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                {% for pizza in all_pizzas %}
+                    <tr>
+                        <td class="">{{pizza.name}}</td>
+                        <td class="">{{pizza.creator.first_name}} {{pizza.creator.last_name}}</td>
+                        <td class="">{{pizza.toppings}}</td>
+                        <td class="">{{pizza.city}}</td>
+                        {% if session.user_id == pizza.user_id  %}
+                            <td class=""><a href="/edit/pizza/{{ pizza.id }}">Edit</a> | <a href="/destroy/pizza/{{ pizza.id }}">Delete</a></td>
+                         {% endif %}
+                     </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+</body>
+</html>
